@@ -5,6 +5,7 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
 import { RecipesEditComponent } from './recipes/recipes-edit/recipes-edit.component';
+import { RecipesResolverService } from './recipes/recipes-resolver.service';
 
 // Order matters when listing routes, make sure that routes are ordered from most specific
 // to least specific to prevent a general route from blocking more specific route checks
@@ -13,8 +14,8 @@ const appRoutes: Routes = [
     { path: 'recipes', component: RecipesComponent, children: [
         { path: '', component: RecipeStartComponent },
         { path: 'new', component: RecipesEditComponent },
-        { path: ':id', component: RecipeDetailComponent },
-        { path: ':id/edit', component: RecipesEditComponent }
+        { path: ':id', component: RecipeDetailComponent, resolve: [RecipesResolverService] },
+        { path: ':id/edit', component: RecipesEditComponent, resolve: [RecipesResolverService] }
     ] },
     { path: 'shopping-list', component: ShoppingListComponent }
 ];
